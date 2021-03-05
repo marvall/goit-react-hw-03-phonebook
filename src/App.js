@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { Component } from "react";
 import uuid from "react-uuid";
 import ContactForm from "./components/ContactForm";
@@ -71,6 +72,16 @@ class App extends Component {
       return contacts;
     }
   };
+  //========= life-cycle the component =========
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem("contacts"));
+    this.setState({ contacts: contacts });
+  }
   render() {
     const contacts = this.filterContacts();
     const filter = this.state.filter;
