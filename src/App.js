@@ -79,8 +79,12 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    const contacts = JSON.parse(localStorage.getItem("contacts"));
-    this.setState({ contacts: contacts });
+    const contactsGeted = JSON.parse(localStorage.getItem("contacts"));
+    if (contactsGeted === null) {
+      this.setState({ contacts: [] });
+    } else {
+      this.setState({ contacts: contactsGeted });
+    }
   }
   render() {
     const contacts = this.filterContacts();
